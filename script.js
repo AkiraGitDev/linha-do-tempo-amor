@@ -78,6 +78,7 @@ if (showAddEventFormBtn && formContainer && cancelAddEventBtn && form && eventDa
 function createEventElement(event) {
     const eventElem = document.createElement('div');
     eventElem.classList.add('timeline-event');
+    eventElem.classList.add('event-card-appear');
     eventElem.setAttribute('data-category', event.category);
     eventElem.id = `event-${event.id}`;
 
@@ -208,10 +209,22 @@ if (filterCategory) {
 
 // Apagar evento pelo ID
 function deleteEvent(id) {
-    let events = loadEvents();
-    events = events.filter(event => event.id !== id);
-    saveEvents(events);
-    renderEvents();
+    const elemToDelete = document.getElementById(`event-${id}`);
+
+    if (elemToDelete) {
+        elemToDelete.classList.add('event-card-disappear');
+        elemToDelete.addEventListener('animationend', () => {
+            let events = loadEvents();
+            events = events.filter(event => event.id !== id);
+            saveEvents(events);
+            renderEvents();
+        }, { once: true });
+    } else {
+        let events = loadEvents();
+        events = events.filter(event => event.id !== id);
+        saveEvents(events);
+        renderEvents();
+    }
 }
 
 // Adicionar novo evento (EventListener do formulário)
@@ -293,7 +306,7 @@ function exportEventAsImage(elementId, eventDescription) {
         return;
     }
     elementToCapture.classList.add('capturing-for-export'); // Classe temporária
-    
+
     // Certifique-se que a biblioteca html2canvas está carregada
     if (typeof html2canvas === 'undefined') {
         alert('Erro: A biblioteca html2canvas não foi carregada.');
@@ -395,7 +408,7 @@ if (editModal) {
 
 // --- FUNCIONALIDADE DO CONTADOR DE RELACIONAMENTO ---
 const relationshipCounterElement = document.getElementById('relationship-counter');
-const relationshipStartDateString = "2025-01-17T18:30:00"; // ATUALIZE ESTA DATA!
+const relationshipStartDateString = "2025-01-17T08:30:00";
 
 function updateRelationshipCounter() {
     if (!relationshipCounterElement) return;
@@ -433,7 +446,7 @@ if (timelineContainer && backToStartBtn) {
 document.addEventListener('DOMContentLoaded', () => {
     renderEvents();
     if (formContainer && showAddEventFormBtn) hideForm(); // Garante que o formulário de adicionar comece escondido
-    
+
     if (relationshipCounterElement) {
         updateRelationshipCounter(); // Primeira chamada
         setInterval(updateRelationshipCounter, 1000); // Atualiza a cada segundo

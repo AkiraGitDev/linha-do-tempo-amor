@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
 /* Reset básico */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Robot', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -41,14 +43,21 @@ header h1 {
   font-weight: 600;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 #show-add-event-form-btn:hover {
   background-color: #d1497f;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+#show-add-event-form-btn:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
 
 .filter-container {
   display: flex;
@@ -125,8 +134,12 @@ form#event-form {
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   font-size: 0.9rem;
+}
+
+#event-form .form-buttons button:active {
+  transform: scale(0.97) translateY(1px);
 }
 
 #event-form .form-buttons button[type="submit"] {
@@ -154,12 +167,15 @@ form#event-form {
   width: 100%;
   max-width: 900px;
   overflow-x: auto;
+  padding: 10px 0;
+  /* Para ver sombras e animações de scale */
 }
 
 .timeline {
   display: flex;
   gap: 25px;
-  padding-bottom: 20px;
+  padding: 10px 20px 20px 20px;
+  /* Padding para respiro da timeline */
   flex-wrap: nowrap;
 }
 
@@ -168,13 +184,13 @@ form#event-form {
   background-color: #fde7f0;
   border-radius: 8px;
   padding: 12px 15px 12px 60px;
-  /* Aumentado padding-left para ícone e botões de ação */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 8px;
   min-width: 250px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* A animação de entrada será aplicada via classe JS */
 }
 
 .timeline-event:hover {
@@ -198,7 +214,6 @@ form#event-form {
 .delete-btn {
   position: absolute;
   left: 12px;
-  /* Alinhados com o ícone de categoria */
   border: none;
   border-radius: 50%;
   width: 28px;
@@ -206,11 +221,10 @@ form#event-form {
   font-weight: bold;
   font-size: 16px;
   line-height: 28px;
-  /* Para alinhar texto/ícone se não for flex */
   text-align: center;
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(165, 110, 130, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   color: white;
   user-select: none;
   display: flex;
@@ -223,15 +237,21 @@ form#event-form {
 .edit-btn:hover,
 .delete-btn:hover {
   transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(165, 110, 130, 0.3);
+}
+
+.export-image-btn:active,
+.edit-btn:active,
+.delete-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 2px rgba(165, 110, 130, 0.2);
 }
 
 .export-image-btn {
   top: 44px;
-  /* Abaixo do ícone da categoria: 12px (top do ícone) + 24px (altura ícone) + 8px (espaço) */
   background: #a8d8ea;
   color: #3e606f;
   font-size: 15px;
-  /* Para o emoji 🖼️ */
 }
 
 .export-image-btn:hover {
@@ -240,11 +260,9 @@ form#event-form {
 
 .edit-btn {
   top: 80px;
-  /* Abaixo do exportBtn: 44px + 28px + 8px */
   background: #f7c6d9;
   color: #8c5066;
   font-size: 18px;
-  /* Para o emoji ✎ */
 }
 
 .edit-btn:hover {
@@ -253,7 +271,6 @@ form#event-form {
 
 .delete-btn {
   top: 116px;
-  /* Abaixo do editBtn: 80px + 28px + 8px */
   background: #f4a1bb;
 }
 
@@ -261,40 +278,32 @@ form#event-form {
   background: #d47790;
 }
 
-/* Conteúdo do Card - ajustado para o novo padding do .timeline-event */
+/* Conteúdo do Card */
 .event-date {
   font-weight: 700;
   color: #a56e82;
   margin-bottom: 8px;
   text-align: center;
-  /* Centralizado no espaço restante */
   width: 100%;
-  padding-right: 0;
-  /* Não mais necessário aqui */
   padding-left: 0;
-  /* O padding do .timeline-event cuida do recuo */
+  padding-right: 0;
   box-sizing: border-box;
   font-size: 1rem;
   margin-top: 5px;
-  /* Para não colar no ícone da categoria se for o primeiro elemento de texto */
 }
 
 .event-desc {
   font-size: 1rem;
   color: #5a3e4a;
   text-align: center;
-  /* Ou 'left' se preferir */
   min-height: 50px;
   word-wrap: break-word;
-  /* padding-left e padding-right não são mais necessários aqui */
 }
 
 .event-image {
   margin-top: 12px;
   max-width: 100%;
-  /* Ocupa o espaço de conteúdo disponível no card */
   margin-left: 0;
-  /* Alinha com o conteúdo do card */
   max-height: 150px;
   border-radius: 8px;
   object-fit: cover;
@@ -306,10 +315,8 @@ form#event-form {
   padding-top: 10px;
   border-top: 1px dashed #f4c1d4;
   margin-left: 0;
-  /* Alinha com o conteúdo do card */
 }
 
-/* ... (estilos de comentários como .event-comment-item, .add-comment-btn, etc. permanecem os mesmos) ... */
 .event-comment-item {
   display: flex;
   justify-content: space-between;
@@ -350,11 +357,15 @@ form#event-form {
   cursor: pointer;
   margin-top: 8px;
   display: inline-block;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .add-comment-btn:hover {
   background-color: #e2b0c3;
+}
+
+.add-comment-btn:active {
+  transform: scale(0.95);
 }
 
 .delete-comment-btn {
@@ -367,10 +378,15 @@ form#event-form {
   padding: 0 0 0 8px;
   line-height: 1;
   margin-left: 5px;
+  transition: color 0.2s ease, transform 0.1s ease;
 }
 
 .delete-comment-btn:hover {
   color: #b35f7d;
+}
+
+.delete-comment-btn:active {
+  transform: scale(0.9);
 }
 
 
@@ -446,6 +462,11 @@ form#event-form {
   letter-spacing: 0.5px;
 }
 
+.modal-buttons button:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 1px 2px rgba(173, 98, 140, 0.2);
+}
+
 .modal-buttons button[type="button"] {
   background-color: #fff0f6;
   border: 1px solid #f7c6d9;
@@ -471,9 +492,22 @@ form#event-form {
   box-shadow: 0 4px 8px rgba(173, 98, 140, 0.3);
 }
 
-.modal-buttons button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 3px rgba(173, 98, 140, 0.2);
+/* CITAÇÃO ESTILOS */
+.quote-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+p.cbjr-quote {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #a56e82;
+  line-height: 1.5;
+  font-style: italic;
 }
 
 /* Responsividade */
@@ -530,17 +564,15 @@ form#event-form {
   }
 
   .timeline-event {
-    min-width: 200px;
-    /* Ajustado para mobile */
+    min-width: calc(100vw - 40px);
+    /* Ocupar largura da tela no mobile */
     padding: 12px 10px 12px 50px;
     /* Padding esquerdo menor para mobile */
   }
 
   .event-category-icon {
     top: 10px;
-    /* Ajuste fino se necessário */
     left: 10px;
-    /* Ajuste fino se necessário */
   }
 
   .export-image-btn {
@@ -561,7 +593,6 @@ form#event-form {
     font-size: 16px;
   }
 
-  /* 40 + 26 + 6 */
   .delete-btn {
     top: 104px;
     left: 10px;
@@ -571,13 +602,8 @@ form#event-form {
     font-size: 16px;
   }
 
-  /* 72 + 26 + 6 */
-
   .event-date {
-    padding-left: 0;
-    /* A data se centralizará no espaço de conteúdo do card */
     margin-top: 0;
-    /* Reset para mobile se necessário, pode ser controlado pelo gap do flex-direction column */
   }
 
   .modal-content {
@@ -653,7 +679,7 @@ footer {
   opacity: 0;
   visibility: hidden;
   transform: scale(0.8);
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #back-to-start-btn.visible {
@@ -665,76 +691,48 @@ footer {
 #back-to-start-btn:hover {
   background-color: #a56e82;
   transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+#back-to-start-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Comentários */
-.event-comments-container {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px dashed #f4c1d4;
+/* ... (estilos de comentários como antes) ... */
+
+/* ANIMAÇÕES DE CARD */
+@keyframes eventAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.event-comment-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff7fa;
-  padding: 6px 10px;
-  border-radius: 4px;
-  margin-bottom: 6px;
+.event-card-appear {
+  animation: eventAppear 0.5s ease-out forwards;
 }
 
-.event-comment-item p.event-comment {
-  flex-grow: 1;
-  margin-bottom: 0;
-  padding: 0;
-  background-color: transparent;
-  font-size: 0.85rem;
-  color: #6b505c;
-  line-height: 1.4;
-  word-wrap: break-word;
+@keyframes eventDisappear {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
 }
 
-.event-comments-list p.no-comments-text {
-  font-size: 0.8rem;
-  color: #a5929a;
-  font-style: italic;
-  text-align: center;
-  padding: 5px 0;
-}
-
-.add-comment-btn {
-  background-color: #f7c6d9;
-  color: #8c5066;
-  border: none;
-  border-radius: 5px;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 8px;
-  display: inline-block;
-  transition: background-color 0.2s ease;
-}
-
-.add-comment-btn:hover {
-  background-color: #e2b0c3;
-}
-
-.delete-comment-btn {
-  background: none;
-  border: none;
-  color: #cc809a;
-  font-weight: bold;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0 0 0 8px;
-  line-height: 1;
-  margin-left: 5px;
-}
-
-.delete-comment-btn:hover {
-  color: #b35f7d;
+.event-card-disappear {
+  animation: eventDisappear 0.4s ease-in forwards;
 }
 
 /* Classe temporária para captura com html2canvas */
