@@ -13,6 +13,19 @@
         <h1>Nossa História</h1>
     </header>
 
+    <section class="filter-container">
+        <label for="filter-category">Filtrar por categoria:</label>
+        <select id="filter-category">
+            <option value="all" selected>Todas</option>
+            <option value="amor">❤️ Amor</option>
+            <option value="aniversario">🎂 Aniversário</option>
+            <option value="viagem">✈️ Viagem</option>
+            <option value="comemoracao">🎉 Comemoração</option>
+            <option value="outro">⭐ Outro</option>
+        </select>
+    </section>
+
+
     <section class="form-container">
         <form id="event-form">
             <input type="date" id="event-date" required>
@@ -36,6 +49,77 @@
             <!-- Eventos serão inseridos aqui pelo script.js -->
         </section>
     </main>
+
+    <!-- Filtro de categoria -->
+    <label for="filter-category">Filtrar por categoria:</label>
+    <select id="filter-category">
+        <option value="all">Todas</option>
+        <option value="amor">Amor</option>
+        <option value="aniversario">Aniversário</option>
+        <option value="viagem">Viagem</option>
+        <option value="comemoracao">Comemoração</option>
+        <option value="outro">Outro</option>
+    </select>
+
+    <!-- Formulário para adicionar evento -->
+    <form id="event-form">
+        <label for="event-date">Data:</label>
+        <input type="date" id="event-date" required />
+
+        <label for="event-desc">Descrição:</label>
+        <input type="text" id="event-desc" required />
+
+        <label for="event-category">Categoria:</label>
+        <select id="event-category" required>
+            <option value="">Selecione</option>
+            <option value="amor">Amor</option>
+            <option value="aniversario">Aniversário</option>
+            <option value="viagem">Viagem</option>
+            <option value="comemoracao">Comemoração</option>
+            <option value="outro">Outro</option>
+        </select>
+
+        <label for="event-image">Imagem (opcional):</label>
+        <input type="file" id="event-image" accept="image/*" />
+
+        <button type="submit">Adicionar Evento</button>
+    </form>
+
+    <!-- Timeline -->
+    <div id="timeline" class="timeline-container"></div>
+
+    <!-- Modal de edição -->
+    <div id="edit-modal" class="modal"
+        style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+        <div style="background:#fff; padding:20px; border-radius:5px; max-width:400px; width:90%;">
+            <h3>Editar Evento</h3>
+            <form id="edit-form">
+                <label for="edit-date">Data:</label>
+                <input type="date" id="edit-date" required />
+
+                <label for="edit-desc">Descrição:</label>
+                <input type="text" id="edit-desc" required />
+
+                <label for="edit-category">Categoria:</label>
+                <select id="edit-category" required>
+                    <option value="amor">Amor</option>
+                    <option value="aniversario">Aniversário</option>
+                    <option value="viagem">Viagem</option>
+                    <option value="comemoracao">Comemoração</option>
+                    <option value="outro">Outro</option>
+                </select>
+
+                <label for="edit-image">Imagem (opcional, enviar para trocar):</label>
+                <input type="file" id="edit-image" accept="image/*" />
+
+                <div style="margin-top: 15px; text-align: right;">
+                    <button type="button" id="edit-cancel-btn">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <script src="script.js"></script>
 </body>

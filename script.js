@@ -10,7 +10,7 @@ const categoryIcons = {
     comemoracao: '🎉',
     outro: '⭐',
 };
-
+const filterCategory = document.getElementById('filter-category');
 
 // Função para formatar data para DD/MM/AAAA
 function formatDate(dateStr) {
@@ -33,7 +33,7 @@ function saveEvents(events) {
 }
 
 // Criar elemento de evento na timeline
-function createEventElement(event, index) {
+function createEventElement(event) {
     const eventElem = document.createElement('div');
     eventElem.classList.add('timeline-event');
 
@@ -53,8 +53,15 @@ function createEventElement(event, index) {
     deleteBtn.textContent = '×';
     deleteBtn.title = 'Apagar evento';
     deleteBtn.onclick = () => {
-        deleteEvent(index);
+        deleteEvent(event.id);
     };
+
+    // Botão editar
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('edit-btn');
+    editBtn.textContent = '✎';
+    editBtn.title = 'Editar evento';
+    editBtn.onclick = () => openEditModal(event.id);
 
     // Descrição do evento
     const eventDescElem = document.createElement('div');
@@ -64,6 +71,7 @@ function createEventElement(event, index) {
     eventElem.appendChild(iconSpan);
     eventElem.appendChild(eventDateElem);
     eventElem.appendChild(deleteBtn);
+    eventElem.appendChild(editBtn);
     eventElem.appendChild(eventDescElem);
 
     if (event.image) {
@@ -77,25 +85,34 @@ function createEventElement(event, index) {
     return eventElem;
 }
 
-
 // Renderizar todos os eventos na timeline
 function renderEvents() {
     timeline.innerHTML = '';
     const events = loadEvents();
 
-    // Ordenar eventos pela data (mais antigos à esquerda)
-    events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    // Filtra os eventos pela categoria selecionada no filtro
+    const selectedCategory = filterCategory.value;
+    let filteredEvents = selectedCategory === 'all'
+        ? events
+        : events.filter(event => event.category === selectedCategory);
 
-    events.forEach((event, index) => {
-        const eventElem = createEventElement(event, index);
+    // Ordenar eventos pela data (mais antigos à esquerda)
+    filteredEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    filteredEvents.forEach(event => {
+        const eventElem = createEventElement(event);
         timeline.appendChild(eventElem);
     });
 }
 
-// Apagar evento pelo índice
-function deleteEvent(index) {
-    const events = loadEvents();
-    events.splice(index, 1);
+filterCategory.addEventListener('change', () => {
+    renderEvents();
+});
+
+// Apagar evento pelo ID
+function deleteEvent(id) {
+    let events = loadEvents();
+    events = events.filter(event => event.id !== id);
     saveEvents(events);
     renderEvents();
 }
@@ -107,17 +124,13 @@ form.addEventListener('submit', e => {
     const date = eventDateInput.value;
     const desc = eventDescInput.value.trim();
     const imageFile = eventImageInput?.files[0] || null;
-    const eventCategoryInput = document.getElementById('event-category');
-
-    // dentro do listener do form
-    const category = eventCategoryInput.value;
+    const category = document.getElementById('event-category').value;
 
     if (!date || !desc || !category) {
         alert('Por favor, preencha data, descrição e categoria.');
         return;
     }
 
-    // ao adicionar evento, passe a categoria também
     if (imageFile) {
         const reader = new FileReader();
         reader.onload = function (evt) {
@@ -127,34 +140,84 @@ form.addEventListener('submit', e => {
     } else {
         addEvent(date, desc, category, null);
     }
-
-
-    if (!date || !desc) {
-        alert('Por favor, preencha a data e a descrição.');
-        return;
-    }
-
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.onload = function (evt) {
-            addEvent(date, desc, evt.target.result);
-        };
-        reader.readAsDataURL(imageFile);
-    } else {
-        addEvent(date, desc, null);
-    }
 });
 
 // Função para adicionar evento ao localStorage e atualizar timeline
 function addEvent(date, desc, category, image) {
     const events = loadEvents();
-    events.push({ date, desc, category, image });
+    const id = Date.now() + Math.random(); // ID único simples
+    events.push({ id, date, desc, category, image });
     saveEvents(events);
     renderEvents();
 
     form.reset();
 }
 
+// Variáveis do modal
+const editModal = document.getElementById('edit-modal');
+const editForm = document.getElementById('edit-form');
+const editDate = document.getElementById('edit-date');
+const editDesc = document.getElementById('edit-desc');
+const editCategory = document.getElementById('edit-category');
+const editImage = document.getElementById('edit-image');
+const editCancelBtn = document.getElementById('edit-cancel-btn');
+
+let editId = null; // id do evento que está sendo editado
+
+// Função abrir modal para editar
+function openEditModal(id) {
+    const events = loadEvents();
+    const event = events.find(ev => ev.id === id);
+    if (!event) return;
+
+    editId = id;
+    editDate.value = event.date;
+    editDesc.value = event.desc;
+    editCategory.value = event.category;
+    editImage.value = ''; // limpa input file
+
+    editModal.style.display = 'flex';
+}
+
+// Fechar modal
+editCancelBtn.addEventListener('click', () => {
+    editModal.style.display = 'none';
+});
+
+// Salvar edição
+editForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const events = loadEvents();
+    const event = events.find(ev => ev.id === editId);
+    if (!event) return;
+
+    if (editImage.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+            updateEventWithImage(evt.target.result);
+        };
+        reader.readAsDataURL(editImage.files[0]);
+    } else {
+        updateEventWithImage(null);
+    }
+});
+
+function updateEventWithImage(newImage) {
+    const events = loadEvents();
+    const event = events.find(ev => ev.id === editId);
+    if (!event) return;
+
+    event.date = editDate.value;
+    event.desc = editDesc.value;
+    event.category = editCategory.value;
+    if (newImage !== null) {
+        event.image = newImage;
+    }
+
+    saveEvents(events);
+    renderEvents();
+    editModal.style.display = 'none';
+}
 
 // Inicializa timeline na abertura da página
 renderEvents();

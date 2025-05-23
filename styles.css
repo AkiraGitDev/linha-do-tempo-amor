@@ -47,7 +47,7 @@ input[type="file"] {
   font-size: 1rem;
   color: #5a3e4a;
   background: #fff0f6;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, background 0.3s;
 }
 
 input[type="date"]:focus,
@@ -83,19 +83,25 @@ button[type="submit"]:hover {
   display: flex;
   gap: 25px;
   padding-bottom: 20px;
+  flex-wrap: nowrap;
 }
 
 .timeline-event {
   position: relative;
-  background-color: #fde7f0;
-  /* rosa pastel */
+  background-color: #fde7f0; /* rosa pastel */
   border-radius: 8px;
-  padding: 12px 40px 12px 50px;
-  /* espaço para ícone à esquerda */
+  padding: 12px 40px 12px 50px; /* espaço para ícone à esquerda */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 220px;
+  transition: transform 0.2s ease;
+}
+
+.timeline-event:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .event-category-icon {
@@ -104,6 +110,7 @@ button[type="submit"]:hover {
   left: 12px;
   font-size: 24px;
   user-select: none;
+  color: #a56e82;
 }
 
 /* Data: com padding extra e largura para não colidir com o botão */
@@ -113,8 +120,7 @@ button[type="submit"]:hover {
   margin-bottom: 8px;
   text-align: center;
   width: 100%;
-  padding-right: 40px;
-  /* espaço para o botão apagar */
+  padding-right: 70px; /* espaço para os botões apagar e editar */
   box-sizing: border-box;
   font-size: 1rem;
 }
@@ -138,29 +144,49 @@ button[type="submit"]:hover {
 }
 
 /* Botão apagar */
-.delete-btn {
+.delete-btn,
+.edit-btn {
   position: absolute;
   top: 12px;
-  /* ajustado para ficar alinhado */
-  right: 12px;
-  background: #f4a1bb;
   border: none;
-  color: white;
-  font-weight: bold;
   border-radius: 50%;
   width: 28px;
   height: 28px;
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgba(165, 110, 130, 0.3);
-  transition: background 0.3s;
+  font-weight: bold;
+  font-size: 18px;
   line-height: 28px;
   text-align: center;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(165, 110, 130, 0.3);
+  transition: background 0.3s ease;
+  color: white;
+  user-select: none;
+}
+
+.delete-btn {
+  right: 12px;
+  background: #f4a1bb;
 }
 
 .delete-btn:hover {
   background: #d47790;
 }
 
+.edit-btn {
+  right: 50px;
+  background: #f7c6d9;
+  color: #ad628c;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  box-shadow: 0 2px 6px rgba(165, 110, 130, 0.4);
+}
+
+.edit-btn:hover {
+  background: #e2a5bf;
+}
+
+/* Responsividade */
 @media (max-width: 650px) {
   form {
     flex-direction: column;
@@ -176,10 +202,93 @@ button[type="submit"]:hover {
   .timeline {
     gap: 15px;
     padding-bottom: 15px;
+    overflow-x: auto;
   }
 
   .timeline-event {
     min-width: 220px;
     padding: 15px 15px 12px 15px;
+  }
+
+  .filter-container {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: #ad628c; /* rosa pastel escuro */
+  }
+
+  .filter-container select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #d8b7cd;
+    background-color: #fff0f6;
+    color: #ad628c;
+    cursor: pointer;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background-color: #fff0f6;
+    border-radius: 10px;
+    padding: 25px 30px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    color: #ad628c;
+  }
+
+  .modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  #edit-form input[type="date"],
+  #edit-form input[type="text"],
+  #edit-form select,
+  #edit-form input[type="file"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #d8b7cd;
+    background-color: #fff0f6;
+    color: #ad628c;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .modal-buttons button {
+    background-color: #f7c6d9;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #ad628c;
+    transition: background-color 0.3s ease;
+  }
+
+  .modal-buttons button:hover {
+    background-color: #e2a5bf;
   }
 }
