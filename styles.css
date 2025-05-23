@@ -21,6 +21,32 @@ header h1 {
   color: #a56e82;
 }
 
+/* Filtro de Categoria - Estilos Base */
+.filter-container {
+  width: 100%;
+  max-width: 600px; /* Ou ajuste conforme necessário */
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem; /* Ajustado para consistência */
+  color: #ad628c;
+}
+
+.filter-container label {
+  /* Estilo opcional para o label, se desejar */
+}
+
+.filter-container select {
+  padding: 8px 12px; /* Ajustado para consistência com outros inputs */
+  border-radius: 6px;
+  border: 1px solid #d8b7cd;
+  background-color: #fff0f6;
+  color: #ad628c;
+  cursor: pointer;
+  font-size: 0.9rem; /* Ajustado */
+}
+
 .form-container {
   width: 100%;
   max-width: 600px;
@@ -39,6 +65,7 @@ form {
 
 input[type="date"],
 input[type="text"],
+select#event-category, /* Adicionado para consistência com inputs */
 input[type="file"] {
   flex: 1 1 150px;
   padding: 10px 12px;
@@ -52,6 +79,7 @@ input[type="file"] {
 
 input[type="date"]:focus,
 input[type="text"]:focus,
+select#event-category:focus,
 input[type="file"]:focus {
   outline: none;
   border-color: #d48ca5;
@@ -60,6 +88,7 @@ input[type="file"]:focus {
 
 button[type="submit"] {
   flex: 0 0 120px;
+  padding: 10px 12px; /* Consistência de padding */
   background: #d48ca5;
   color: #fff;
   border: none;
@@ -67,6 +96,7 @@ button[type="submit"] {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
+  font-size: 1rem; /* Consistência de fonte */
 }
 
 button[type="submit"]:hover {
@@ -90,13 +120,13 @@ button[type="submit"]:hover {
   position: relative;
   background-color: #fde7f0; /* rosa pastel */
   border-radius: 8px;
-  padding: 12px 40px 12px 50px; /* espaço para ícone à esquerda */
+  padding: 12px 40px 12px 50px; /* espaço para ícone à esquerda e botões */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 8px;
   min-width: 220px;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .timeline-event:hover {
@@ -113,7 +143,6 @@ button[type="submit"]:hover {
   color: #a56e82;
 }
 
-/* Data: com padding extra e largura para não colidir com o botão */
 .event-date {
   font-weight: 700;
   color: #a56e82;
@@ -125,15 +154,14 @@ button[type="submit"]:hover {
   font-size: 1rem;
 }
 
-/* Descrição */
 .event-desc {
   font-size: 1rem;
   color: #5a3e4a;
   text-align: center;
   min-height: 50px;
+  word-wrap: break-word; /* Para quebrar palavras longas */
 }
 
-/* Imagem */
 .event-image {
   margin-top: 12px;
   max-width: 100%;
@@ -143,7 +171,6 @@ button[type="submit"]:hover {
   box-shadow: 0 1px 5px rgba(165, 110, 130, 0.2);
 }
 
-/* Botão apagar */
 .delete-btn,
 .edit-btn {
   position: absolute;
@@ -173,11 +200,11 @@ button[type="submit"]:hover {
 }
 
 .edit-btn {
-  right: 50px;
+  right: 50px; /* (12px do delete + 28px largura delete + 10px espaço) */
   background: #f7c6d9;
   color: #ad628c;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   line-height: 28px;
   box-shadow: 0 2px 6px rgba(165, 110, 130, 0.4);
 }
@@ -186,109 +213,183 @@ button[type="submit"]:hover {
   background: #e2a5bf;
 }
 
+/* Modal styles - ESTILOS BASE MOVIDOS PARA FORA DA MEDIA QUERY */
+.modal {
+  display: none; /* Inicia escondido */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff0f6;
+  border-radius: 15px;
+  padding: 25px 30px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  color: #ad628c;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+#edit-form input[type="date"],
+#edit-form input[type="text"],
+#edit-form select,
+#edit-form input[type="file"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #d8b7cd;
+  background-color: #fff0f6;
+  color: #ad628c;
+  font-size: 1rem;
+}
+
+#edit-form input[type="text"]::placeholder {
+  color: #d8b7cd;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+  gap: 15px;
+}
+
+.modal-buttons button {
+  min-width: 100px; /* Reduzido um pouco para caber melhor */
+  background-color: #f7c6d9;
+  border: none;
+  padding: 10px 20px; /* Ajustado */
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem; /* Consistência */
+  color: #ad628c;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(173, 98, 140, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-buttons button[type="button"] { /* Botão Cancelar */
+  background-color: #fff0f6;
+  border: 1px solid #f7c6d9;
+  color: #ad628c;
+}
+
+.modal-buttons button[type="submit"] { /* Botão Salvar do modal */
+  background-color: #d48ca5;
+  color: white;
+  /* Reset flex property from general submit button if needed, but seems fine */
+  flex: 0 0 auto; /* Garante que não herde flex: 0 0 120px */
+  min-width: 100px; /* Mantém consistência com o de cancelar */
+}
+
+.modal-buttons button[type="button"]:hover { /* Hover Cancelar */
+  background-color: #ffe8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(173, 98, 140, 0.3);
+}
+
+.modal-buttons button[type="submit"]:hover { /* Hover Salvar */
+  background-color: #bb7b8f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(173, 98, 140, 0.3);
+}
+
+.modal-buttons button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(173, 98, 140, 0.2);
+}
+
+
 /* Responsividade */
 @media (max-width: 650px) {
+  body {
+    padding: 15px; /* Menor padding em telas pequenas */
+  }
+
+  .filter-container {
+    font-size: 16px; /* Mantido do original para mobile */
+    flex-direction: column; /* Empilhar filtro em telas menores */
+    align-items: stretch;
+  }
+
+  .filter-container select {
+    padding: 10px 12px; /* Aumentar um pouco para toque */
+  }
+
   form {
     flex-direction: column;
   }
 
   input[type="date"],
   input[type="text"],
+  select#event-category,
   input[type="file"],
   button[type="submit"] {
-    flex: 1 1 100%;
+    flex: 1 1 100%; /* Ocupar largura total no mobile */
   }
 
   .timeline {
     gap: 15px;
-    padding-bottom: 15px;
-    overflow-x: auto;
+    padding-left: 10px;  /* Espaço para não colar na borda */
+    padding-right: 10px; /* Espaço para não colar na borda */
   }
 
   .timeline-event {
-    min-width: 220px;
-    padding: 15px 15px 12px 15px;
+    min-width: 200px; /* Levemente menor se necessário */
+    padding: 15px; /* Padding mais uniforme no mobile */
   }
 
-  .filter-container {
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    color: #ad628c; /* rosa pastel escuro */
+  .event-category-icon {
+    top: 15px;
+    left: 15px;
   }
 
-  .filter-container select {
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid #d8b7cd;
-    background-color: #fff0f6;
-    color: #ad628c;
-    cursor: pointer;
+  .event-date {
+    padding-right: 60px; /* Ajustar se os botões ficaram muito próximos */
   }
 
-  /* Modal styles */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    align-items: center;
-  }
-
+  /* Ajustes no modal para telas pequenas, se necessário. */
+  /* Os estilos base já devem funcionar bem, mas aqui pode-se ajustar
+     max-width, paddings, etc. se o layout base não for ideal.
+     Por exemplo, garantir que o modal não seja muito largo: */
   .modal-content {
-    background-color: #fff0f6;
-    border-radius: 10px;
-    padding: 25px 30px;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    color: #ad628c;
-  }
-
-  .modal-content h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-weight: 700;
-    text-align: center;
+    padding: 20px;
+    /* max-width continua 400px, width 90% já deve ser bom */
   }
 
   #edit-form input[type="date"],
   #edit-form input[type="text"],
   #edit-form select,
   #edit-form input[type="file"] {
-    width: 100%;
-    padding: 8px 10px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border: 1px solid #d8b7cd;
-    background-color: #fff0f6;
-    color: #ad628c;
+    padding: 10px 12px; /* Ajuste fino para mobile */
+    font-size: 0.95rem;
   }
 
   .modal-buttons {
-    display: flex;
-    justify-content: space-between;
+    gap: 10px;
   }
 
   .modal-buttons button {
-    background-color: #f7c6d9;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #ad628c;
-    transition: background-color 0.3s ease;
-  }
-
-  .modal-buttons button:hover {
-    background-color: #e2a5bf;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    /* Os hovers específicos para first-child e last-child já estão fora da media query e são aplicados.
+       A regra genérica .modal-buttons button:hover que causava conflito foi removida/integrada. */
   }
 }
