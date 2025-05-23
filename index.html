@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linha do Tempo do Amor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Nossa História</h1>
+  </header>
+
+  <section class="form-container">
+    <form id="event-form">
+      <input type="date" id="event-date" required>
+      <input type="text" id="event-desc" placeholder="Descrição do evento" required>
+      <input type="file" id="event-image" accept="image/*">
+      <button type="submit">Adicionar Evento</button>
+    </form>
+  </section>
+
+  <main class="timeline-container">
+    <section class="timeline" id="timeline">
+      <!-- Eventos serão inseridos aqui pelo script.js -->
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
