@@ -21,24 +21,20 @@ header h1 {
   color: #a56e82;
 }
 
-/* Novo container para botão "Adicionar Novo Momento" e filtro */
+/* Container de Controles */
 .controls-container {
   width: 100%;
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  /* Botão acima do filtro */
   align-items: center;
-  /* Centraliza o botão */
   gap: 15px;
-  /* Espaço entre o botão e o filtro */
   margin-bottom: 20px;
 }
 
 #show-add-event-form-btn {
   padding: 12px 25px;
   background: #e86095;
-  /* Cor de destaque */
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -54,21 +50,14 @@ header h1 {
   transform: translateY(-2px);
 }
 
-
-/* Filtro de Categoria - Estilos Base */
 .filter-container {
-  /* width: 100%;  Removido, pois .controls-container já define max-width */
-  /* max-width: 600px; */
-  /* margin: 20px 0; Removido, pois .controls-container já tem margem */
   display: flex;
   align-items: center;
   gap: 12px;
   font-size: 1rem;
   color: #ad628c;
   padding: 10px;
-  /* Adicionado padding para consistência visual */
   background-color: #fde7f0;
-  /* Fundo suave */
   border-radius: 8px;
 }
 
@@ -78,7 +67,6 @@ header h1 {
   border: 1px solid #d8b7cd;
   background-color: #fff0f6;
   color: #ad628c;
-  /* Ajustado para #5a3e4a ou #ad628c se preferir contraste */
   cursor: pointer;
   font-size: 0.9rem;
 }
@@ -87,11 +75,9 @@ header h1 {
   width: 100%;
   max-width: 600px;
   margin-bottom: 30px;
-  /* display: none; será controlado pelo JS, mas pode ser mantido aqui se o JS falhar */
 }
 
 form#event-form {
-  /* ID adicionado para especificidade */
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -101,15 +87,12 @@ form#event-form {
   box-shadow: 0 2px 8px rgba(165, 110, 130, 0.2);
 }
 
-/* Inputs e select do formulário */
 #event-form input[type="date"],
 #event-form input[type="text"],
 #event-form select#event-category,
 #event-form input[type="file"] {
   flex: 1 1 calc(50% - 10px);
-  /* Tenta manter 2 por linha, ajustando o gap */
   min-width: 150px;
-  /* Garante que não fiquem muito pequenos */
   padding: 10px 12px;
   border: 1px solid #f4c1d4;
   border-radius: 6px;
@@ -128,18 +111,14 @@ form#event-form {
   background: #f9d6e1;
 }
 
-/* Container para os botões do formulário */
 #event-form .form-buttons {
   flex-basis: 100%;
-  /* Ocupa toda a largura */
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  /* Alinha botões à direita */
   margin-top: 10px;
 }
 
-/* Botões dentro do #event-form */
 #event-form .form-buttons button {
   padding: 10px 20px;
   border: none;
@@ -161,9 +140,7 @@ form#event-form {
 }
 
 #event-form .form-buttons button[type="button"] {
-  /* Botão Cancelar */
   background: #f0f0f0;
-  /* Cor neutra */
   color: #333;
   border: 1px solid #ddd;
 }
@@ -173,9 +150,6 @@ form#event-form {
   transform: translateY(-1px);
 }
 
-
-/* Restante do seu CSS (timeline, modal, etc.) permanece o mesmo */
-/* ... (cole o restante do seu CSS aqui) ... */
 .timeline-container {
   width: 100%;
   max-width: 900px;
@@ -192,15 +166,14 @@ form#event-form {
 .timeline-event {
   position: relative;
   background-color: #fde7f0;
-  /* rosa pastel */
   border-radius: 8px;
-  padding: 12px 40px 12px 50px;
-  /* espaço para ícone à esquerda e botões */
+  padding: 12px 15px 12px 60px;
+  /* Aumentado padding-left para ícone e botões de ação */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-width: 220px;
+  min-width: 250px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -216,59 +189,71 @@ form#event-form {
   font-size: 24px;
   user-select: none;
   color: #a56e82;
+  z-index: 1;
 }
 
-.event-date {
-  font-weight: 700;
-  color: #a56e82;
-  margin-bottom: 8px;
-  text-align: center;
-  width: 100%;
-  padding-right: 70px;
-  /* espaço para os botões apagar e editar */
-  box-sizing: border-box;
-  font-size: 1rem;
-}
-
-.event-desc {
-  font-size: 1rem;
-  color: #5a3e4a;
-  text-align: center;
-  min-height: 50px;
-  word-wrap: break-word;
-  /* Para quebrar palavras longas */
-}
-
-.event-image {
-  margin-top: 12px;
-  max-width: 100%;
-  max-height: 150px;
-  border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 1px 5px rgba(165, 110, 130, 0.2);
-}
-
-.delete-btn,
-.edit-btn {
+/* BOTÕES DE AÇÃO: EXPORTAR, EDITAR, DELETAR - EMPILHADOS À ESQUERDA */
+.export-image-btn,
+.edit-btn,
+.delete-btn {
   position: absolute;
-  top: 12px;
+  left: 12px;
+  /* Alinhados com o ícone de categoria */
   border: none;
   border-radius: 50%;
   width: 28px;
   height: 28px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 28px;
+  /* Para alinhar texto/ícone se não for flex */
   text-align: center;
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(165, 110, 130, 0.3);
-  transition: background 0.3s ease;
+  box-shadow: 0 1px 4px rgba(165, 110, 130, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
   color: white;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.export-image-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover {
+  transform: scale(1.1);
+}
+
+.export-image-btn {
+  top: 44px;
+  /* Abaixo do ícone da categoria: 12px (top do ícone) + 24px (altura ícone) + 8px (espaço) */
+  background: #a8d8ea;
+  color: #3e606f;
+  font-size: 15px;
+  /* Para o emoji 🖼️ */
+}
+
+.export-image-btn:hover {
+  background: #8fc3d5;
+}
+
+.edit-btn {
+  top: 80px;
+  /* Abaixo do exportBtn: 44px + 28px + 8px */
+  background: #f7c6d9;
+  color: #8c5066;
+  font-size: 18px;
+  /* Para o emoji ✎ */
+}
+
+.edit-btn:hover {
+  background: #e2b0c3;
 }
 
 .delete-btn {
-  right: 12px;
+  top: 116px;
+  /* Abaixo do editBtn: 80px + 28px + 8px */
   background: #f4a1bb;
 }
 
@@ -276,25 +261,122 @@ form#event-form {
   background: #d47790;
 }
 
-.edit-btn {
-  right: 50px;
-  /* (12px do delete + 28px largura delete + 10px espaço) */
-  background: #f7c6d9;
-  color: #ad628c;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 28px;
-  box-shadow: 0 2px 6px rgba(165, 110, 130, 0.4);
+/* Conteúdo do Card - ajustado para o novo padding do .timeline-event */
+.event-date {
+  font-weight: 700;
+  color: #a56e82;
+  margin-bottom: 8px;
+  text-align: center;
+  /* Centralizado no espaço restante */
+  width: 100%;
+  padding-right: 0;
+  /* Não mais necessário aqui */
+  padding-left: 0;
+  /* O padding do .timeline-event cuida do recuo */
+  box-sizing: border-box;
+  font-size: 1rem;
+  margin-top: 5px;
+  /* Para não colar no ícone da categoria se for o primeiro elemento de texto */
 }
 
-.edit-btn:hover {
-  background: #e2a5bf;
+.event-desc {
+  font-size: 1rem;
+  color: #5a3e4a;
+  text-align: center;
+  /* Ou 'left' se preferir */
+  min-height: 50px;
+  word-wrap: break-word;
+  /* padding-left e padding-right não são mais necessários aqui */
 }
 
-/* Modal styles - ESTILOS BASE MOVIDOS PARA FORA DA MEDIA QUERY */
+.event-image {
+  margin-top: 12px;
+  max-width: 100%;
+  /* Ocupa o espaço de conteúdo disponível no card */
+  margin-left: 0;
+  /* Alinha com o conteúdo do card */
+  max-height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 1px 5px rgba(165, 110, 130, 0.2);
+}
+
+.event-comments-container {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #f4c1d4;
+  margin-left: 0;
+  /* Alinha com o conteúdo do card */
+}
+
+/* ... (estilos de comentários como .event-comment-item, .add-comment-btn, etc. permanecem os mesmos) ... */
+.event-comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff7fa;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.event-comment-item p.event-comment {
+  flex-grow: 1;
+  margin-bottom: 0;
+  padding: 0;
+  background-color: transparent;
+  font-size: 0.85rem;
+  color: #6b505c;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.event-comments-list p.no-comments-text {
+  font-size: 0.8rem;
+  color: #a5929a;
+  font-style: italic;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.add-comment-btn {
+  background-color: #f7c6d9;
+  color: #8c5066;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.add-comment-btn:hover {
+  background-color: #e2b0c3;
+}
+
+.delete-comment-btn {
+  background: none;
+  border: none;
+  color: #cc809a;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+  line-height: 1;
+  margin-left: 5px;
+}
+
+.delete-comment-btn:hover {
+  color: #b35f7d;
+}
+
+
+/* Modal styles */
 .modal {
   display: none;
-  /* Inicia escondido */
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -394,7 +476,6 @@ form#event-form {
   box-shadow: 0 2px 3px rgba(173, 98, 140, 0.2);
 }
 
-
 /* Responsividade */
 @media (max-width: 650px) {
   body {
@@ -403,12 +484,10 @@ form#event-form {
 
   .controls-container {
     align-items: stretch;
-    /* Estica o botão no mobile */
   }
 
   #show-add-event-form-btn {
     font-size: 1rem;
-    /* Ajuste de fonte para mobile */
     padding: 10px 20px;
   }
 
@@ -417,9 +496,7 @@ form#event-form {
     flex-direction: column;
     align-items: stretch;
     padding: 10px;
-    /* Ajuste */
     border-radius: 6px;
-    /* Ajuste */
   }
 
   .filter-container select {
@@ -427,30 +504,24 @@ form#event-form {
   }
 
   #event-form {
-    /* Aplicar flex-direction:column ao form, não ao form-container */
     flex-direction: column;
   }
 
-  /* Inputs e select do formulário principal no mobile */
   #event-form input[type="date"],
   #event-form input[type="text"],
   #event-form select#event-category,
   #event-form input[type="file"] {
     flex: 1 1 100%;
-    /* Ocupar largura total no mobile */
   }
 
-  /* Botões do formulário principal no mobile */
   #event-form .form-buttons {
     flex-direction: column-reverse;
-    /* Empilhar com submit em baixo */
     gap: 8px;
   }
 
   #event-form .form-buttons button {
     width: 100%;
   }
-
 
   .timeline {
     gap: 15px;
@@ -460,16 +531,53 @@ form#event-form {
 
   .timeline-event {
     min-width: 200px;
-    padding: 15px;
+    /* Ajustado para mobile */
+    padding: 12px 10px 12px 50px;
+    /* Padding esquerdo menor para mobile */
   }
 
   .event-category-icon {
-    top: 15px;
-    left: 15px;
+    top: 10px;
+    /* Ajuste fino se necessário */
+    left: 10px;
+    /* Ajuste fino se necessário */
   }
 
+  .export-image-btn {
+    top: 40px;
+    left: 10px;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 14px;
+  }
+
+  .edit-btn {
+    top: 72px;
+    left: 10px;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 16px;
+  }
+
+  /* 40 + 26 + 6 */
+  .delete-btn {
+    top: 104px;
+    left: 10px;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 16px;
+  }
+
+  /* 72 + 26 + 6 */
+
   .event-date {
-    padding-right: 60px;
+    padding-left: 0;
+    /* A data se centralizará no espaço de conteúdo do card */
+    margin-top: 0;
+    /* Reset para mobile se necessário, pode ser controlado pelo gap do flex-direction column */
   }
 
   .modal-content {
@@ -494,7 +602,7 @@ form#event-form {
   }
 }
 
-/* Estilos para o rodapé e o contador */
+/* Footer e Contador */
 footer {
   width: 100%;
   background-color: #a56e82;
@@ -524,28 +632,24 @@ footer {
   }
 }
 
-/* Estilos para o Botão Voltar ao Início */
+/* Botão Voltar ao Início */
 #back-to-start-btn {
   position: fixed;
   bottom: 30px;
   left: 30px;
   z-index: 100;
-
   background-color: #c77792;
   color: white;
   border: none;
   border-radius: 50%;
   width: 50px;
   height: 50px;
-
   font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
   line-height: 50px;
-
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-
   opacity: 0;
   visibility: hidden;
   transform: scale(0.8);
@@ -563,20 +667,30 @@ footer {
   transform: scale(1.1);
 }
 
-/* Estilos para a Seção de Comentários no Card do Evento */
+/* Comentários */
 .event-comments-container {
   margin-top: 12px;
   padding-top: 10px;
   border-top: 1px dashed #f4c1d4;
 }
 
-.event-comments-list p.event-comment {
+.event-comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #fff7fa;
   padding: 6px 10px;
   border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.event-comment-item p.event-comment {
+  flex-grow: 1;
+  margin-bottom: 0;
+  padding: 0;
+  background-color: transparent;
   font-size: 0.85rem;
   color: #6b505c;
-  margin-bottom: 6px;
   line-height: 1.4;
   word-wrap: break-word;
 }
@@ -607,27 +721,6 @@ footer {
   background-color: #e2b0c3;
 }
 
-.event-comment-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff7fa;
-  padding: 6px 10px;
-  border-radius: 4px;
-  margin-bottom: 6px;
-}
-
-.event-comment-item p.event-comment {
-  flex-grow: 1;
-  margin-bottom: 0;
-  padding: 0;
-  background-color: transparent;
-  font-size: 0.85rem;
-  color: #6b505c;
-  line-height: 1.4;
-  word-wrap: break-word;
-}
-
 .delete-comment-btn {
   background: none;
   border: none;
@@ -642,4 +735,22 @@ footer {
 
 .delete-comment-btn:hover {
   color: #b35f7d;
+}
+
+/* Classe temporária para captura com html2canvas */
+.capturing-for-export {
+
+  /* Para esconder os botões de ação durante a captura: */
+  .delete-btn,
+  .edit-btn,
+  .export-image-btn,
+  .delete-comment-btn,
+  .add-comment-btn {
+    display: none !important;
+  }
+
+  /* Outros estilos para melhorar a captura, se necessário: */
+  /* box-shadow: none !important; */
+  /* transform: none !important; */
+  /* margin: 0 !important; */
 }
