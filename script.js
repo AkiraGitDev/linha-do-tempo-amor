@@ -43,16 +43,16 @@ function saveEvents(events) {
 
 // --- Funções para controlar visibilidade do formulário de adicionar evento ---
 function showForm() {
-    formContainer.style.display = 'block'; // ou 'flex' se o form-container usar flex
-    showAddEventFormBtn.style.display = 'none'; // Esconde o botão "Adicionar Novo Momento"
-    eventDateInput.focus(); // Foca no primeiro campo do formulário
+    formContainer.style.display = 'block';
+    showAddEventFormBtn.style.display = 'none';
+    eventDateInput.focus();
 }
 
 function hideForm() {
     formContainer.style.display = 'none';
-    showAddEventFormBtn.style.display = 'block'; // Mostra o botão "Adicionar Novo Momento"
-    form.reset(); // Limpa o formulário
-    eventImageInput.value = ''; // Limpa o input de arquivo especificamente
+    showAddEventFormBtn.style.display = 'block';
+    form.reset();
+    eventImageInput.value = '';
 }
 
 // Event Listeners para os novos botões
@@ -162,9 +162,8 @@ form.addEventListener('submit', e => {
         reader.onload = function (evt) {
             addEventToStorage(date, desc, category, evt.target.result);
         };
-        reader.onerror = function() {
+        reader.onerror = function () {
             alert('Erro ao ler a imagem.');
-            // Não chama hideForm() aqui para o usuário poder tentar de novo
             eventImageInput.value = '';
         };
         reader.readAsDataURL(imageFile);
@@ -180,8 +179,7 @@ function addEventToStorage(date, desc, category, image) {
     events.push({ id, date, desc, category, image });
     saveEvents(events);
     renderEvents();
-    hideForm(); // Esconde o formulário após adicionar com sucesso
-    // form.reset() e eventImageInput.value = '' já são chamados em hideForm()
+    hideForm();
 }
 
 // Variáveis do modal de edição
@@ -228,7 +226,7 @@ editForm.addEventListener('submit', (e) => {
         reader.onload = function (evt) {
             updateEventInStorage(evt.target.result);
         };
-        reader.onerror = function() {
+        reader.onerror = function () {
             alert('Erro ao ler a nova imagem para edição.');
         };
         reader.readAsDataURL(imageFile);
@@ -244,7 +242,7 @@ function updateEventInStorage(newBase64Image) {
 
     events[eventIndex].date = editDate.value;
     events[eventIndex].desc = editDesc.value.trim();
-    events[eventIndex].category = editCategoryModal.value; // Usando a variável renomeada
+    events[eventIndex].category = editCategoryModal.value;
 
     if (newBase64Image) {
         events[eventIndex].image = newBase64Image;
@@ -269,6 +267,71 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Inicializar o estado do formulário (opcional, mas garante consistência no carregamento)
-// Se o formContainer deve começar escondido e o botão de adicionar visível:
-hideForm(); // Chama para garantir o estado inicial correto
+hideForm();
+
+
+
+
+// --- FUNCIONALIDADE DO CONTADOR DE RELACIONAMENTO ---
+
+const relationshipCounterElement = document.getElementById('relationship-counter');
+
+// ATENÇÃO: Altere esta data para a data e hora exatas do início do relacionamento.
+// Formato: "AAAA-MM-DDTHH:MM:SS" (Ex: "2022-01-15T20:00:00")
+// Usando 17 de Janeiro de 2025, 18:30:00 como placeholder:
+const relationshipStartDateString = "2025-01-17T18:30:00";
+
+function updateRelationshipCounter() {
+    if (!relationshipCounterElement) return; // Sai se o elemento não existir
+
+    const startDate = new Date(relationshipStartDateString);
+    const now = new Date();
+
+    let diffInMilliseconds = now - startDate;
+
+    // Se a data de início for no futuro (em relação ao relógio do navegador do usuário)
+    if (diffInMilliseconds < 0) {
+        relationshipCounterElement.textContent = "Nossa contagem especial começa em breve! ❤️";
+        return;
+    }
+
+    // Cálculo de tempo
+    let remainingMilliseconds = diffInMilliseconds;
+
+    const daysInMs = 24 * 60 * 60 * 1000;
+    const hoursInMs = 60 * 60 * 1000;
+    const minutesInMs = 60 * 1000;
+    const secondsInMs = 1000;
+
+    const days = Math.floor(remainingMilliseconds / daysInMs);
+    remainingMilliseconds %= daysInMs;
+
+    const hours = Math.floor(remainingMilliseconds / hoursInMs);
+    remainingMilliseconds %= hoursInMs;
+
+    const minutes = Math.floor(remainingMilliseconds / minutesInMs);
+    remainingMilliseconds %= minutesInMs;
+
+    const seconds = Math.floor(remainingMilliseconds / secondsInMs);
+
+    // Formatação do texto do contador
+    // Você pode personalizar esta mensagem como quiser!
+    const pluralS = (n) => (n !== 1 ? 's' : '');
+    relationshipCounterElement.innerHTML = `<span>Juntos há: </span> <strong>${days} dia${pluralS(days)}</strong>, ` +
+        `<strong>${String(hours).padStart(2, '0')}h</strong> ` +
+        `<strong>${String(minutes).padStart(2, '0')}m</strong> ` +
+        `<strong>${String(seconds).padStart(2, '0')}s</strong> ✨`;
+}
+
+// Garante que o DOM está carregado antes de tentar acessar o elemento e iniciar o contador
+document.addEventListener('DOMContentLoaded', () => {
+    if (relationshipCounterElement) {
+        updateRelationshipCounter();
+        setInterval(updateRelationshipCounter, 1000);
+    }
+});
+
+if (document.getElementById('relationship-counter')) {
+    updateRelationshipCounter();
+    setInterval(updateRelationshipCounter, 1000);
+}
