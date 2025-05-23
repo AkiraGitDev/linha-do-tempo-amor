@@ -562,3 +562,84 @@ footer {
   background-color: #a56e82;
   transform: scale(1.1);
 }
+
+/* Estilos para a Seção de Comentários no Card do Evento */
+.event-comments-container {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #f4c1d4;
+}
+
+.event-comments-list p.event-comment {
+  background-color: #fff7fa;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #6b505c;
+  margin-bottom: 6px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.event-comments-list p.no-comments-text {
+  font-size: 0.8rem;
+  color: #a5929a;
+  font-style: italic;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.add-comment-btn {
+  background-color: #f7c6d9;
+  color: #8c5066;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.add-comment-btn:hover {
+  background-color: #e2b0c3;
+}
+
+.event-comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff7fa;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.event-comment-item p.event-comment {
+  flex-grow: 1;
+  margin-bottom: 0;
+  padding: 0;
+  background-color: transparent;
+  font-size: 0.85rem;
+  color: #6b505c;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.delete-comment-btn {
+  background: none;
+  border: none;
+  color: #cc809a;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+  line-height: 1;
+  margin-left: 5px;
+}
+
+.delete-comment-btn:hover {
+  color: #b35f7d;
+}
