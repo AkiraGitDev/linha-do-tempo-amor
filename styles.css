@@ -492,34 +492,73 @@ form#event-form {
     padding: 10px 15px;
     font-size: 0.9rem;
   }
+}
 
-  /* Estilos para o rodapé e o contador */
-  footer {
-    width: 100%;
-    background-color: #a56e82;
-    color: #fde7f0;
-    text-align: center;
-    padding: 18px 20px;
-    margin-top: auto;
-    box-shadow: 0 -2px 8px rgba(100, 50, 70, 0.15);
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+/* Estilos para o rodapé e o contador */
+footer {
+  width: 100%;
+  background-color: #a56e82;
+  color: #fde7f0;
+  text-align: center;
+  padding: 18px 20px;
+  margin-top: auto;
+  box-shadow: 0 -2px 8px rgba(100, 50, 70, 0.15);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+#relationship-counter {
+  font-weight: 500;
+  animation: pulseCounter 2s infinite ease-in-out alternate;
+}
+
+@keyframes pulseCounter {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
   }
 
-  #relationship-counter {
-    font-weight: 500;
-    animation: pulseCounter 2s infinite ease-in-out alternate;
+  100% {
+    transform: scale(1.02);
+    opacity: 1;
   }
+}
 
-  @keyframes pulseCounter {
-    0% {
-      transform: scale(1);
-      opacity: 0.9;
-    }
+/* Estilos para o Botão Voltar ao Início */
+#back-to-start-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  z-index: 100;
 
-    100% {
-      transform: scale(1.02);
-      opacity: 1;
-    }
-  }
+  background-color: #c77792;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 50px;
+
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#back-to-start-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+#back-to-start-btn:hover {
+  background-color: #a56e82;
+  transform: scale(1.1);
 }

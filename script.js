@@ -6,6 +6,8 @@ const eventDescInput = document.getElementById('event-desc');
 const eventCategoryInput = document.getElementById('event-category');
 const eventImageInput = document.getElementById('event-image');
 const filterCategory = document.getElementById('filter-category');
+const timelineContainer = document.querySelector('.timeline-container');
+const backToStartBtn = document.getElementById('back-to-start-btn');
 
 // Novos elementos para a funcionalidade de mostrar/esconder formulário
 const showAddEventFormBtn = document.getElementById('show-add-event-form-btn');
@@ -334,4 +336,23 @@ document.addEventListener('DOMContentLoaded', () => {
 if (document.getElementById('relationship-counter')) {
     updateRelationshipCounter();
     setInterval(updateRelationshipCounter, 1000);
+}
+
+// --- LÓGICA PARA O BOTÃO "VOLTAR AO INÍCIO" ---
+if (timelineContainer && backToStartBtn) {
+    timelineContainer.addEventListener('scroll', () => {
+        if (timelineContainer.scrollLeft > 200) {
+            backToStartBtn.classList.add('visible');
+        } else {
+            backToStartBtn.classList.remove('visible');
+        }
+    });
+
+    // Ação de clique do botão
+    backToStartBtn.addEventListener('click', () => {
+        timelineContainer.scrollTo({
+            left: 0,
+            behavior: 'smooth'
+        });
+    });
 }
