@@ -1,4 +1,4 @@
-# 💖 Nossa Jornada Digital: Uma Linha do Tempo de Amor ✨
+# 💖 Uma Linha do Tempo de Amor
 
 Este projeto é uma linha do tempo interativa e pessoal, criada com carinho para celebrar e registrar os momentos especiais do nosso relacionamento. Uma aplicação web desenvolvida para guardar nossas memórias de forma única e acessível.
 
@@ -27,7 +27,7 @@ Esta linha do tempo foi pensada como um presente: um espaço digital onde podemo
 
 ## 🚀 Como Usar e Reviver Nossos Momentos:
 
-* **Acesse o link:** `[SEU_LINK_AQUI, ex: seunome.github.io/nomedoprojeto/]` (Se você hospedar no GitHub Pages ou similar).
+* **Acesse o link:** `https://akiragitdev.github.io/linha-do-tempo-amor/` (Se você hospedar no GitHub Pages ou similar).
 * **Para rodar localmente:** Baixe os arquivos (`index.html`, `styles.css`, `script.js`) e abra o `index.html` em seu navegador.
 * **Interaja:** Use os botões e filtros para navegar, adicionar, editar ou exportar suas memórias.
 
