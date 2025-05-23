@@ -21,39 +21,69 @@ header h1 {
   color: #a56e82;
 }
 
+/* Novo container para botão "Adicionar Novo Momento" e filtro */
+.controls-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column; /* Botão acima do filtro */
+  align-items: center; /* Centraliza o botão */
+  gap: 15px; /* Espaço entre o botão e o filtro */
+  margin-bottom: 20px;
+}
+
+#show-add-event-form-btn {
+  padding: 12px 25px;
+  background: #e86095; /* Cor de destaque */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+#show-add-event-form-btn:hover {
+  background-color: #d1497f;
+  transform: translateY(-2px);
+}
+
+
 /* Filtro de Categoria - Estilos Base */
 .filter-container {
-  width: 100%;
-  max-width: 600px; /* Ou ajuste conforme necessário */
-  margin: 20px 0;
+  /* width: 100%;  Removido, pois .controls-container já define max-width */
+  /* max-width: 600px; */
+  /* margin: 20px 0; Removido, pois .controls-container já tem margem */
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 1rem; /* Ajustado para consistência */
+  font-size: 1rem;
   color: #ad628c;
-}
-
-.filter-container label {
-  /* Estilo opcional para o label, se desejar */
+  padding: 10px; /* Adicionado padding para consistência visual */
+  background-color: #fde7f0; /* Fundo suave */
+  border-radius: 8px;
 }
 
 .filter-container select {
-  padding: 8px 12px; /* Ajustado para consistência com outros inputs */
+  padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid #d8b7cd;
   background-color: #fff0f6;
-  color: #ad628c;
+  color: #ad628c; /* Ajustado para #5a3e4a ou #ad628c se preferir contraste */
   cursor: pointer;
-  font-size: 0.9rem; /* Ajustado */
+  font-size: 0.9rem;
 }
 
 .form-container {
   width: 100%;
   max-width: 600px;
   margin-bottom: 30px;
+  /* display: none; será controlado pelo JS, mas pode ser mantido aqui se o JS falhar */
 }
 
-form {
+form#event-form { /* ID adicionado para especificidade */
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -63,11 +93,13 @@ form {
   box-shadow: 0 2px 8px rgba(165, 110, 130, 0.2);
 }
 
-input[type="date"],
-input[type="text"],
-select#event-category, /* Adicionado para consistência com inputs */
-input[type="file"] {
-  flex: 1 1 150px;
+/* Inputs e select do formulário */
+#event-form input[type="date"],
+#event-form input[type="text"],
+#event-form select#event-category,
+#event-form input[type="file"] {
+  flex: 1 1 calc(50% - 10px); /* Tenta manter 2 por linha, ajustando o gap */
+  min-width: 150px; /* Garante que não fiquem muito pequenos */
   padding: 10px 12px;
   border: 1px solid #f4c1d4;
   border-radius: 6px;
@@ -77,32 +109,57 @@ input[type="file"] {
   transition: border-color 0.3s, background 0.3s;
 }
 
-input[type="date"]:focus,
-input[type="text"]:focus,
-select#event-category:focus,
-input[type="file"]:focus {
+#event-form input[type="date"]:focus,
+#event-form input[type="text"]:focus,
+#event-form select#event-category:focus,
+#event-form input[type="file"]:focus {
   outline: none;
   border-color: #d48ca5;
   background: #f9d6e1;
 }
 
-button[type="submit"] {
-  flex: 0 0 120px;
-  padding: 10px 12px; /* Consistência de padding */
-  background: #d48ca5;
-  color: #fff;
+/* Container para os botões do formulário */
+#event-form .form-buttons {
+    flex-basis: 100%; /* Ocupa toda a largura */
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Alinha botões à direita */
+    margin-top: 10px;
+}
+
+/* Botões dentro do #event-form */
+#event-form .form-buttons button {
+  padding: 10px 20px;
   border: none;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
-  font-size: 1rem; /* Consistência de fonte */
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 0.9rem;
 }
 
-button[type="submit"]:hover {
+#event-form .form-buttons button[type="submit"] {
+  background: #d48ca5;
+  color: #fff;
+}
+#event-form .form-buttons button[type="submit"]:hover {
   background: #bb7b8f;
+  transform: translateY(-1px);
 }
 
+#event-form .form-buttons button[type="button"] { /* Botão Cancelar */
+  background: #f0f0f0; /* Cor neutra */
+  color: #333;
+  border: 1px solid #ddd;
+}
+#event-form .form-buttons button[type="button"]:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+
+/* Restante do seu CSS (timeline, modal, etc.) permanece o mesmo */
+/* ... (cole o restante do seu CSS aqui) ... */
 .timeline-container {
   width: 100%;
   max-width: 900px;
@@ -270,14 +327,14 @@ button[type="submit"]:hover {
 }
 
 .modal-buttons button {
-  min-width: 100px; /* Reduzido um pouco para caber melhor */
+  min-width: 100px; 
   background-color: #f7c6d9;
   border: none;
-  padding: 10px 20px; /* Ajustado */
+  padding: 10px 20px; 
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 1rem; /* Consistência */
+  font-size: 1rem; 
   color: #ad628c;
   transition: all 0.3s ease;
   box-shadow: 0 2px 5px rgba(173, 98, 140, 0.2);
@@ -285,27 +342,26 @@ button[type="submit"]:hover {
   letter-spacing: 0.5px;
 }
 
-.modal-buttons button[type="button"] { /* Botão Cancelar */
+.modal-buttons button[type="button"] { 
   background-color: #fff0f6;
   border: 1px solid #f7c6d9;
   color: #ad628c;
 }
 
-.modal-buttons button[type="submit"] { /* Botão Salvar do modal */
+.modal-buttons button[type="submit"] { 
   background-color: #d48ca5;
   color: white;
-  /* Reset flex property from general submit button if needed, but seems fine */
-  flex: 0 0 auto; /* Garante que não herde flex: 0 0 120px */
-  min-width: 100px; /* Mantém consistência com o de cancelar */
+  flex: 0 0 auto; 
+  min-width: 100px; 
 }
 
-.modal-buttons button[type="button"]:hover { /* Hover Cancelar */
+.modal-buttons button[type="button"]:hover { 
   background-color: #ffe8f0;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(173, 98, 140, 0.3);
 }
 
-.modal-buttons button[type="submit"]:hover { /* Hover Salvar */
+.modal-buttons button[type="submit"]:hover { 
   background-color: #bb7b8f;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(173, 98, 140, 0.3);
@@ -320,40 +376,61 @@ button[type="submit"]:hover {
 /* Responsividade */
 @media (max-width: 650px) {
   body {
-    padding: 15px; /* Menor padding em telas pequenas */
+    padding: 15px; 
+  }
+  
+  .controls-container {
+    align-items: stretch; /* Estica o botão no mobile */
+  }
+
+  #show-add-event-form-btn {
+    font-size: 1rem; /* Ajuste de fonte para mobile */
+    padding: 10px 20px;
   }
 
   .filter-container {
-    font-size: 16px; /* Mantido do original para mobile */
-    flex-direction: column; /* Empilhar filtro em telas menores */
+    font-size: 16px; 
+    flex-direction: column; 
     align-items: stretch;
+    padding: 10px; /* Ajuste */
+    border-radius: 6px; /* Ajuste */
   }
 
   .filter-container select {
-    padding: 10px 12px; /* Aumentar um pouco para toque */
+    padding: 10px 12px; 
   }
 
-  form {
+  #event-form { /* Aplicar flex-direction:column ao form, não ao form-container */
     flex-direction: column;
   }
 
-  input[type="date"],
-  input[type="text"],
-  select#event-category,
-  input[type="file"],
-  button[type="submit"] {
+  /* Inputs e select do formulário principal no mobile */
+  #event-form input[type="date"],
+  #event-form input[type="text"],
+  #event-form select#event-category,
+  #event-form input[type="file"] {
     flex: 1 1 100%; /* Ocupar largura total no mobile */
   }
+  
+  /* Botões do formulário principal no mobile */
+  #event-form .form-buttons {
+    flex-direction: column-reverse; /* Empilhar com submit em baixo */
+    gap: 8px;
+  }
+  #event-form .form-buttons button {
+      width: 100%;
+  }
+
 
   .timeline {
     gap: 15px;
-    padding-left: 10px;  /* Espaço para não colar na borda */
-    padding-right: 10px; /* Espaço para não colar na borda */
+    padding-left: 10px;  
+    padding-right: 10px; 
   }
 
   .timeline-event {
-    min-width: 200px; /* Levemente menor se necessário */
-    padding: 15px; /* Padding mais uniforme no mobile */
+    min-width: 200px; 
+    padding: 15px; 
   }
 
   .event-category-icon {
@@ -362,23 +439,18 @@ button[type="submit"]:hover {
   }
 
   .event-date {
-    padding-right: 60px; /* Ajustar se os botões ficaram muito próximos */
+    padding-right: 60px; 
   }
-
-  /* Ajustes no modal para telas pequenas, se necessário. */
-  /* Os estilos base já devem funcionar bem, mas aqui pode-se ajustar
-     max-width, paddings, etc. se o layout base não for ideal.
-     Por exemplo, garantir que o modal não seja muito largo: */
+ 
   .modal-content {
     padding: 20px;
-    /* max-width continua 400px, width 90% já deve ser bom */
   }
 
   #edit-form input[type="date"],
   #edit-form input[type="text"],
   #edit-form select,
   #edit-form input[type="file"] {
-    padding: 10px 12px; /* Ajuste fino para mobile */
+    padding: 10px 12px; 
     font-size: 0.95rem;
   }
 
@@ -389,7 +461,5 @@ button[type="submit"]:hover {
   .modal-buttons button {
     padding: 10px 15px;
     font-size: 0.9rem;
-    /* Os hovers específicos para first-child e last-child já estão fora da media query e são aplicados.
-       A regra genérica .modal-buttons button:hover que causava conflito foi removida/integrada. */
   }
 }

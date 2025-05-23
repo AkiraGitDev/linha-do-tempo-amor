@@ -13,20 +13,20 @@
         <h1>Nossa História</h1>
     </header>
 
-    <section class="filter-container">
-        <label for="filter-category">Filtrar por categoria:</label>
-        <select id="filter-category">
-            <option value="all" selected>Todas</option>
-            <option value="amor">❤️ Amor</option>
-            <option value="aniversario">🎂 Aniversário</option>
-            <option value="viagem">✈️ Viagem</option>
-            <option value="comemoracao">🎉 Comemoração</option>
-            <option value="outro">⭐ Outro</option>
-        </select>
+    <section class="controls-container"> <button id="show-add-event-form-btn">✨ Adicionar Novo Momento ✨</button>
+        <div class="filter-container"> <label for="filter-category">Filtrar por categoria:</label>
+            <select id="filter-category">
+                <option value="all" selected>Todas</option>
+                <option value="amor">❤️ Amor</option>
+                <option value="aniversario">🎂 Aniversário</option>
+                <option value="viagem">✈️ Viagem</option>
+                <option value="comemoracao">🎉 Comemoração</option>
+                <option value="outro">⭐ Outro</option>
+            </select>
+        </div>
     </section>
 
-    <section class="form-container">
-        <form id="event-form">
+    <section class="form-container" id="form-container" style="display: none;"> <form id="event-form">
             <input type="date" id="event-date" required>
             <input type="text" id="event-desc" placeholder="Descrição do evento" required>
             <select id="event-category" required>
@@ -39,17 +39,16 @@
             </select>
 
             <input type="file" id="event-image" accept="image/*">
-            <button type="submit">Adicionar Evento</button>
+            <div class="form-buttons"> <button type="submit">Adicionar Evento</button>
+                <button type="button" id="cancel-add-event-btn">Cancelar</button> </div>
         </form>
     </section>
 
     <main class="timeline-container">
         <section class="timeline" id="timeline">
-            <!-- Eventos serão inseridos aqui pelo script.js -->
-        </section>
+            </section>
     </main>
 
-    <!-- Modal de edição -->
     <div id="edit-modal" class="modal">
         <div class="modal-content">
             <h2>Editar Evento</h2>
