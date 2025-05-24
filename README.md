@@ -25,9 +25,9 @@ Esta linha do tempo foi pensada como um presente: um espaço digital onde podemo
     * Um botão "⇤ Início" permite rolar suavemente de volta para o começo da linha do tempo.
     * Animações sutis na adição e remoção de eventos, e feedback visual em botões, para uma experiência mais agradável.
 
-## 🚀 Como Usar e Reviver Nossos Momentos:
+## 🚀 Como Usar:
 
-* **Acesse o link:** `https://akiragitdev.github.io/linha-do-tempo-amor/` (Se você hospedar no GitHub Pages ou similar).
+* **Acesse o link:** `https://akiragitdev.github.io/linha-do-tempo-amor/`.
 * **Para rodar localmente:** Baixe os arquivos (`index.html`, `styles.css`, `script.js`) e abra o `index.html` em seu navegador.
 * **Interaja:** Use os botões e filtros para navegar, adicionar, editar ou exportar suas memórias.
 
@@ -36,6 +36,6 @@ Esta linha do tempo foi pensada como um presente: um espaço digital onde podemo
 * **HTML5:** Para a estrutura semântica da nossa linha do tempo.
 * **CSS3:** Para toda a estilização, layout (incluindo Flexbox) e animações.
 * **JavaScript (Vanilla JS):** Responsável por toda a interatividade, lógica de manipulação de eventos, gerenciamento de dados com o `localStorage` e interações com o DOM.
-* **`localStorage` API:** Para garantir que nossas memórias fiquem salvas no seu navegador.
+* **`localStorage` API:** Para garantir que os momentos do relacionamen fiquem salvas no seu navegador.
 * **`FileReader` API:** Para o upload e visualização de imagens.
 * **`html2canvas`:** Biblioteca externa (via CDN) para a funcionalidade de exportar os cards de evento como imagem.
